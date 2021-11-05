@@ -4,7 +4,13 @@ using System.Text;
 
 namespace Model.Common
 {
-    class IProductCategory
+    public interface IProductCategory
     {
+        Guid Id { get; set; }
+
+        String Name { get; set; }
+
+        IEnumerable<IProduct> Products { get; set; }
+
     }
 }

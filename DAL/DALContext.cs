@@ -8,6 +8,9 @@ namespace DAL
 {
     public class DALContext : DbContext
     {
-        public DbSet<IProduct> Product
+        public DbSet<IProduct> Product { get; set; }
+
+        public DbSet<IProductCategory> ProductCategory { get; set; }
+       
     }
 }
