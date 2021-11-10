@@ -1,39 +1,40 @@
-﻿using Model.Common;
+﻿using Common;
+using Common.Filters;
+using Microsoft.EntityFrameworkCore;
+using Model.Common;
+using Repository.Common;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Repository.Common;
 using X.PagedList;
-using Common;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
-    public class ProductRepository : IProductRepository
+    public class ProductCategoryRepository : IProductCategoryRepository
     {
 
-        public ProductRepository(IGenericRepository<IProduct> genericGenericRepository)
+        public ProductCategoryRepository(IGenericRepository<IProductCategory> genericGenericRepository)
         {
             GenericRepository = genericGenericRepository;
         }
 
-        public IGenericRepository<IProduct> GenericRepository { get; set; }
+        public IGenericRepository<IProductCategory> GenericRepository { get; set; }
 
-        public async Task<IProduct> GetByIdAsync(int id)
+        public async Task<IProductCategory> GetByIdAsync(int id)
         {
-          return await GenericRepository.GetByIdAsync(id);
+            return await GenericRepository.GetByIdAsync(id);
 
         }
 
-        public async Task<int> InsertAsync(IProduct domainModel)
+        public async Task<int> InsertAsync(IProductCategory domainModel)
         {
             return await GenericRepository.InsertAsync(domainModel);
 
         }
 
-        public async Task<int> UpdateAsync(IProduct domainModel)
+        public async Task<int> UpdateAsync(IProductCategory domainModel)
         {
             return await GenericRepository.UpdateAsync(domainModel);
         }
@@ -42,7 +43,7 @@ namespace Repository
         {
             return await GenericRepository.DeleteAsync(id);
         }
-        public async Task<IPagedList<IProduct>> FindAsync(IProductFilter filter, IOptionParameters options)
+        public async Task<IPagedList<IProductCategory>> FindAsync(IProductCategoryFilter filter, IOptionParameters options)
         {
             var query = GenericRepository.Get();
 
@@ -58,7 +59,7 @@ namespace Repository
                 query = query.Skip((options.PageNumber - 1) * options.PageSize).Take(options.PageSize);
             }
             var enumerableQuery = query.AsEnumerable();
-            return new StaticPagedList<IProduct>(enumerableQuery, options.PageNumber, options.PageSize, options.TotalCount);
+            return new StaticPagedList<IProductCategory>(enumerableQuery, options.PageNumber, options.PageSize, options.TotalCount);
         }
     }
 }
